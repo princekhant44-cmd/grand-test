@@ -1,0 +1,61 @@
+{
+  "table": "interests",
+  "soft_delete": false,
+  "indexes": [
+    {
+      "columns": ["from_user_id", "to_user_id"],
+      "unique": true
+    },
+    {
+      "columns": ["to_user_id", "status"]
+    }
+  ],
+  "schema": {
+    "from_user_id": {
+      "type": "integer",
+      "required": true
+    },
+    "to_user_id": {
+      "type": "integer",
+      "required": true
+    },
+    "message": {
+      "type": "text"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "accepted", "declined"],
+      "default": "pending"
+    }
+  },
+  "access": {
+    "fetch": [
+      { "role": "user", "condition": "from_user_id = {user_id} OR to_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "search": [
+      { "role": "user", "condition": "from_user_id = {user_id} OR to_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "count": [
+      { "role": "user", "condition": "from_user_id = {user_id} OR to_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "exists": [
+      { "role": "user", "condition": "from_user_id = {user_id} OR to_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "create": [
+      { "role": "user", "condition": "from_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "update": [
+      { "role": "user", "condition": "to_user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "delete": [
+      { "role": "user", "condition": "from_user_id = {user_id}" },
+      { "role": "admin" }
+    ]
+  }
+}

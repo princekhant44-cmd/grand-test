@@ -1,0 +1,58 @@
+{
+  "table": "shortlists",
+  "soft_delete": false,
+  "indexes": [
+    {
+      "columns": ["user_id", "profile_id"],
+      "unique": true
+    }
+  ],
+  "schema": {
+    "user_id": {
+      "type": "integer",
+      "required": true
+    },
+    "profile_id": {
+      "type": "integer",
+      "required": true,
+      "relationship": {
+        "model": "profiles",
+        "foreign_key": "id"
+      }
+    },
+    "note": {
+      "type": "string",
+      "max_length": 255
+    }
+  },
+  "access": {
+    "fetch": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "search": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "count": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "exists": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "create": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "update": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "delete": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ]
+  }
+}

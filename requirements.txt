@@ -1,0 +1,3 @@
+# kirak-core is installed when the app is deployed, with the extras of the
+# database, modules and providers kirak.json enables. Add only packages your
+# own code imports beyond Kirak.

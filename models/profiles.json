@@ -1,0 +1,105 @@
+{
+  "table": "profiles",
+  "soft_delete": true,
+  "indexes": [
+    {
+      "columns": ["gender", "city"]
+    }
+  ],
+  "schema": {
+    "user_id": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "full_name": {
+      "type": "string",
+      "required": true,
+      "max_length": 120,
+      "searchable": true
+    },
+    "gender": {
+      "type": "string",
+      "required": true,
+      "enum": ["male", "female"]
+    },
+    "date_of_birth": {
+      "type": "date",
+      "required": true
+    },
+    "height_cm": {
+      "type": "integer",
+      "min_value": 120,
+      "max_value": 230
+    },
+    "marital_status": {
+      "type": "string",
+      "enum": ["never_married", "divorced", "widowed"],
+      "default": "never_married"
+    },
+    "sect": {
+      "type": "string",
+      "max_length": 50
+    },
+    "city": {
+      "type": "string",
+      "max_length": 100,
+      "searchable": true
+    },
+    "state": {
+      "type": "string",
+      "max_length": 100
+    },
+    "education": {
+      "type": "string",
+      "max_length": 150
+    },
+    "occupation": {
+      "type": "string",
+      "max_length": 150,
+      "searchable": true
+    },
+    "about": {
+      "type": "text"
+    },
+    "photo_url": {
+      "type": "image"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "access": {
+    "fetch": [
+      { "role": "user", "condition": "is_active = TRUE OR user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "search": [
+      { "role": "user", "condition": "is_active = TRUE OR user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "count": [
+      { "role": "user", "condition": "is_active = TRUE OR user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "exists": [
+      { "role": "user", "condition": "is_active = TRUE OR user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "create": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "update": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "delete": [
+      { "role": "user", "condition": "user_id = {user_id}" },
+      { "role": "admin" }
+    ],
+    "restore": [{ "role": "admin" }],
+    "destroy": [{ "role": "admin" }]
+  }
+}
